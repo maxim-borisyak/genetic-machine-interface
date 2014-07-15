@@ -1,0 +1,3 @@
+[submodule "genetic-machine"]
+	path = genetic-machine
+	url = https://github.com/ZloVechno/genetic-machine.git
