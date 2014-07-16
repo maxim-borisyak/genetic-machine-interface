@@ -1,15 +1,33 @@
-@(title: String)(content: Html)
+@(title: String, additionalIncludes: List[String] = List.empty)(content: Html)
 
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Genetic + Machine interface">
+  <meta name="author" content="ZloVechno">
 
-<html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+  <title>@title</title>
+
+  <link rel="shortcut icon" href='@routes.Assets.at("imgs/favicon.png")'>
+
+  <script src='@routes.Assets.at("js/jquery-1.11.1.min.js")' type="text/javascript"></script>
+  <script src='@routes.Assets.at("js/bootstrap.min.js")' type="text/javascript"></script>
+  <script src='@routes.Assets.at("js/main.js")' type="text/javascript"></script>
+
+  <link href='@routes.Assets.at("css/bootstrap.min.css")' rel="stylesheet" media='screen'>
+  <link href='@routes.Assets.at("css/bootstrap-theme.css")' rel="stylesheet" media='screen'>
+  <link href='@routes.Assets.at("css/main.css")' rel="stylesheet" media='screen'>
+
+  @additionalIncludes.map { src =>
+    <script src='@routes.Assets.at(s"js/$src")' type="text/javascript"></script>
+  }
+</head>
+
+<body>
+  @content
+</body>
+
 </html>

@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Orbitron-Light'), local('Orbitron-Regular'), url(/assets/css/Orbitron.woff) format('woff');
+}
+
+body {
+  padding-top: 50px;
+}
+
+.content {
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.brand {
+  font-size: 28px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.navbar-nav {
+  font-size: 18px;
+  font-family: 'Orbitron', sans-serif;
+}
