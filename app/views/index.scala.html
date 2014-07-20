@@ -1,6 +1,6 @@
-@(content: Html)
+@(content: String)
 
-@main("Welcome to Genetic + Machine") {
+@main("Welcome to Genetic + Machine", List("dff.js")) {
 
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -25,8 +25,12 @@
     </div>
   </div>
 
-  <div class="container content">
-    @content
+  <div class="container main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="dff-view"></div>
+      </div>
+    </div>
   </div>
 
 }

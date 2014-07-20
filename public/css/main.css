@@ -5,13 +5,36 @@
   src: local('Orbitron-Light'), local('Orbitron-Regular'), url(/assets/css/Orbitron.woff) format('woff');
 }
 
+@font-face {
+  font-family: 'Share Tech';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Share Tech'), local('ShareTech-Regular'), url(/assets/css/ShareTech.woff) format('woff');
+}
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Share Tech Mono'), local('ShareTechMono-Regular'), url(/assets/css/ShareTechMono.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(/assets/css/UbuntuMono.woff) format('woff');
+}
+
 body {
   padding-top: 50px;
 }
 
+.main-container {
+  padding: 20px 15px;
+}
+
 .content {
   padding: 20px 15px;
-  text-align: center;
 }
 
 .brand {
@@ -22,4 +45,24 @@ body {
 .navbar-nav {
   font-size: 18px;
   font-family: 'Orbitron', sans-serif;
+}
+
+pre {
+  text-align: left;
+  font-size: 16px;
+  font-family: 'Ubuntu Mono', sans-serif;
+}
+
+.panel-title {
+  font-size: 22px;
+  font-family: 'Share Tech', sans-serif;
+}
+
+.panel-body {
+  font-size: 18px;
+  font-family: 'Ubuntu Mono', sans-serif;
+}
+
+.alert {
+  text-align: left;
 }
