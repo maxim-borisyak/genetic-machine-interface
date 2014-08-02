@@ -1,28 +1,30 @@
 package controllers
 
-import play.api._
+import controllers.db.ViewProxy
+import geneticmachine.machine.{GeneticMachine, RemoteView, Neo4jDB}
 import play.api.mvc._
-import common.dataflow._
-import play.api.libs.json._
 
-object Application extends Controller {
+object Application extends ViewProxy {
+
+  new GeneticMachine(dbPath = "../genetic-machine/genetic-machine-db") with Neo4jDB with RemoteView
+
+  override lazy val masterSystemName: String = "GeneticMachine@127.0.0.1:7778"
 
   def index = Action {
     Ok {
-      views.html.index {
-        Json.prettyPrint {
-          enrichDataflow(DataFlowFormat.sample).toJson
-        }
-      }
+      views.html.dff()
     }
   }
 
-  def dff(id: Long) = Action {
+  def genealogy() = Action {
     Ok {
-      val gDB = new geneticmachine.db.drivers.Neo4JDriver("../genetic-machine/genetic-machine-db")
-      val response = enrichDataflow(gDB.load(id)).toJson
-      gDB.shutdown()
-      response
+      views.html.genealogy()
+    }
+  }
+
+  def experiments = Action {
+    Ok {
+      views.html.experiment()
     }
   }
 }

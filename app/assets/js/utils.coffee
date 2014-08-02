@@ -13,6 +13,12 @@ utils =
 
     paramsObj
 
+  # cyclic dependencies...
+  showError: (reason, e) ->
+    p = ui.panel(["panel-danger"], "Error")
+    p._body.append('<strong>' + reason + '</strong>: ' + e)
+    $("#content").append(p)
+
 require = (scripts) ->
   for s in scripts
     moduleName = if typeof(s) is "string" then s else s.module
@@ -20,10 +26,18 @@ require = (scripts) ->
     if not root[moduleName]?
       throw "Dependency #{moduleName} (#{file}) is missing"
 
+def = (name) -> (defenition) ->
+  root.utils.currentModule[name] = defenition
+
 module = (name, dependsOn = []) -> (defenition) ->
   if not root[name]?
     require(dependsOn)
-    root[name] = defenition()
+    root[name] = {}
+    root.utils.currentModule = root[name]
+    defenition()
+    root.utils.currentModule = null
+
 
 root.utils = utils
 root.module = module
+root.def = def

@@ -1,4 +1,4 @@
-module("showDff", dependsOn = [{ module : "d3", file : "d3.min.js" }]) () ->
+module("viewer", dependsOn = [{ module : "d3", file : "d3.min.js" }, "ui", "DFF"]) () ->
   Status =
     Occupied: 1
     Free: -1
@@ -19,13 +19,11 @@ module("showDff", dependsOn = [{ module : "d3", file : "d3.min.js" }]) () ->
   for k of Colors
     Colors[Status[k]] = Colors[k]
 
-  console.log(Colors)
-
   unmerge = (arr, cols) ->
     d3.range(arr.length / cols).map (row) ->
       arr.slice(row * cols, (row + 1) * cols)
 
-  showDff = (dff, container) ->
+  def("show") (dff, container) ->
     obtainData = () ->
       dff.nodes[dff.nodes["#{dff.inputNode}"].edges["0"]["0"].nodeId].props
 
@@ -40,16 +38,10 @@ module("showDff", dependsOn = [{ module : "d3", file : "d3.min.js" }]) () ->
     eY = data.TrajectoryY[data.TrajectoryX.length - 1]
     matrix["#{eX}"]["#{eY}"] = Status.End
 
-    labPanel = d3.select("#" + container).append("div")
-      .classed({"panel" : true, "panel-default" : true})
-    labPanel.append("div")
-      .classed({"panel-heading" : true})
-      .append("h1").classed({"panel-title" : true})
-      .text("Labyrinth")
+    labPanel = ui.panel(["panel-default"], "Labyrinth", "lab-panel")
+    $("#" + container).append(labPanel)
 
-    body = labPanel.append("div").classed({"panel-body" : true})
-
-    svg = body.append("svg")
+    svg = d3.select("#lab-panel").append("svg")
       .style("min-height", "920px")
       .style("width", "100%")
       .style("margin", "auto")
@@ -191,31 +183,14 @@ module("showDff", dependsOn = [{ module : "d3", file : "d3.min.js" }]) () ->
       .style("font-size", '20px')
 
     # Properties
-    propPanel = d3.select("#" + container).append("div")
-      .classed({"panel" : true, "panel-default" : true})
-    propPanel.append("div")
-      .classed({"panel-heading" : true})
-      .append("h1").classed({"panel-title" : true})
-      .text("Properties")
+    propPanel = ui.panel(["panel-default"], "Properties")
+    table = ui.table(["props"], ["property", "value"])
+    propPanel._body.append(table)
 
-    table = propPanel.append("div").classed({"panel-body" : true}).append("table")
+    for k, v of DFF.prettyProps(dff.props)
+      table._add([k, v])
 
-    table.classed({ "table" : true, "table-hover" : true })
-    hr = table.append("thead").append("tr")
-    hr.append("th").text("prop")
-    hr.append("th").text("value")
+    for k, v of DFF.prettyProps(data)
+      table._add([k, v])
 
-    b = table.append("tbody")
-    for k, v of dff.props
-      if typeof(v) != "object"
-        row = b.append("tr")
-        row.append("td").text(k)
-        row.append("td").text(v)
-
-    for k, v of data
-      if typeof(v) != "object"
-        row = b.append("tr")
-        row.append("td").text(k)
-        row.append("td").text(v)
-
-  showDff
+    $("#" + container).append(propPanel)

@@ -2,12 +2,19 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
 GET        /                    controllers.Application.index
 
 GET        /dff/:id             controllers.Application.dff(id: Long)
 
+GET        /traverse_new        controllers.Application.traverseNew
+
+GET        /traverse/:id        controllers.Application.traverse(id: Long)
+
 GET        /show                controllers.Application.index
+
+GET        /genealogy           controllers.Application.genealogy
+
+GET        /experiments         controllers.Application.experiments
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
