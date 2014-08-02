@@ -4,17 +4,19 @@
 
 GET        /                    controllers.Application.index
 
-GET        /dff/:id             controllers.Application.dff(id: Long)
+GET        /dff/:id             controllers.GeneticMachine.dff(id: Long)
 
-GET        /traverse_new        controllers.Application.traverseNew
+GET        /traverse_new        controllers.GeneticMachine.traverseNew()
 
-GET        /traverse/:id        controllers.Application.traverse(id: Long)
+GET        /traverse/:id        controllers.GeneticMachine.traverse(id: Long)
 
-GET        /show                controllers.Application.index
+GET        /show                controllers.Application.show
 
 GET        /genealogy           controllers.Application.genealogy
 
 GET        /experiments         controllers.Application.experiments
+
+GET       /about             controllers.GeneticMachine.about
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)

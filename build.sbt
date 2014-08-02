@@ -2,22 +2,22 @@ name := "genetic-machine-interface"
 
 version := "0.1"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = Project(id = "genetic-machine-interface", base = file(".")).enablePlugins(PlayScala)
   .aggregate(geneticMachine)
   .dependsOn(geneticMachine)
 
-lazy val geneticMachine = project in file("./genetic-machine")
+lazy val geneticMachine = Project(id = "genetic-machine", base = file("./genetic-machine"))
 
 scalaVersion := "2.11.1"
 
 scalacOptions += "-feature"
 
-libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor" % "2.3.2",
-  "com.typesafe.akka" %% "akka-remote" % "2.3.2"
-)
+resolvers += "Typesafe Snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
 
-libraryDependencies += "com.github.romix.akka" %% "akka-kryo-serialization" % "0.3.2"
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-actor" % "2.3.4",
+  "com.typesafe.akka" %% "akka-remote" % "2.3.4"
+)
 
 libraryDependencies ++= Seq(
   jdbc,
